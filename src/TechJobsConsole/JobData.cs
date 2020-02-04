@@ -49,7 +49,7 @@ namespace TechJobsConsole
             {
                 string aValue = row[column];
 
-                if (aValue.Contains(value))
+                if (aValue.ToLower().Contains(value))
                 {
                     jobs.Add(row);
                 }
@@ -137,6 +137,23 @@ namespace TechJobsConsole
             valueBuilder.Clear();
 
             return rowValues.ToArray();
+        }
+
+        public static List<Dictionary<string, string>> FindByValue (List<Dictionary<string, string>> AllJobs, string term)
+        {
+            List<Dictionary<string, string>> jobs = new List<Dictionary<string, string>>();
+
+            foreach (Dictionary<string, string> job in AllJobs)
+            {
+                foreach (KeyValuePair<string, string> row in job )
+
+                    if (row.Value.ToLower().Contains(term) && !jobs.Contains(job))
+                    {
+                        jobs.Add(job);
+                    }
+
+            }
+            return jobs;
         }
     }
 }
